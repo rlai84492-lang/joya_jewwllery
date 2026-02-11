@@ -1,0 +1,9 @@
+{
+  "name": "JEWEL BOX - AI Jewelry Experience",
+  "description": "Premium jewelry brand JEWEL BOX at Omaxe Hazratganj, Lucknow. Featuring AI-powered personalized greetings, virtual try-ons, and luxury gold & diamond collections.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
