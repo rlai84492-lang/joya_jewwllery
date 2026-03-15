@@ -37,7 +37,7 @@ export const sendGreetingViaBackend = async (
   const tryOnLink = `${window.location.origin}/#/product/${product.id}`;
   
   // Format the text body for the messaging app
-  const fullText = `*A Special Gift from RLAI Tanishq*\n\n${message}\n\n✨ *Exclusive Offer*: ${offerDetails}\n🎫 *Use Code*: ${couponCode}\n\n💎 *Experience Virtual Try-on*:\n${tryOnLink}`;
+  const fullText = `*A Special Gift from RLAI Zoya*\n\n${message}\n\n✨ *Exclusive Offer*: ${offerDetails}\n🎫 *Use Code*: ${couponCode}\n\n💎 *Experience Virtual Try-on*:\n${tryOnLink}`;
 
   const payload: DispatchPayload = {
     to: customer.phone,

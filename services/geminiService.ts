@@ -16,7 +16,7 @@ export const generateGreetingMessage = async (profile: UserProfile, productName:
   const ai = getAIClient();
   const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
-    contents: `You are a luxury marketing consultant for 'TANISHQ Jewelry'. 
+    contents: `You are a luxury marketing consultant for 'Zoya Jewelry'. 
                Generate a personalized digital greeting package for ${profile.name} for their ${profile.event}.
                
                Context:
@@ -25,10 +25,10 @@ export const generateGreetingMessage = async (profile: UserProfile, productName:
                - Featured Product: ${productName}
                
                Tasks:
-               1. Write a warm, high-end greeting message from Tanishq.
-               2. Create a luxury privilege coupon (e.g., TANISHQ-ROYAL-2025).
+               1. Write a warm, high-end greeting message from Zoya.
+               2. Create a luxury privilege coupon (e.g., Zoya-ROYAL-2025).
                3. Define a compelling boutique offer.
-               4. Write image/video prompts reflecting Tanishq's pure gold heritage.
+               4. Write image/video prompts reflecting Zoya's pure gold heritage.
                
                Return ONLY a JSON object with keys: "message", "imagePrompt", "videoPrompt", "couponCode", "offerDetails".`,
     config: {
@@ -52,10 +52,10 @@ export const generateGreetingMessage = async (profile: UserProfile, productName:
     return JSON.parse(response.text || "{}");
   } catch (e) {
     return {
-      message: `Wishing you a sparkling ${profile.event} from TANISHQ.`,
-      imagePrompt: `A luxury Tanishq ${productName} in a celebratory setting.`,
+      message: `Wishing you a sparkling ${profile.event} from Zoya.`,
+      imagePrompt: `A luxury Zoya ${productName} in a celebratory setting.`,
       videoPrompt: `Cinematic macro shot of a ${productName}.`,
-      couponCode: "TANISHQ-LUXE",
+      couponCode: "Zoya-LUXE",
       offerDetails: "Special Boutique Discount"
     };
   }
@@ -67,10 +67,10 @@ export const recommendJewelry = async (transcript: string, products: Product[]):
   
   const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
-    contents: `You are a senior Tanishq style advisor.
+    contents: `You are a senior Zoya style advisor.
                A customer says: "${transcript}"
                
-               Based on this, select the top 4 most relevant Tanishq product IDs from this list:
+               Based on this, select the top 4 most relevant Zoya product IDs from this list:
                ${JSON.stringify(productData)}
                
                Provide the response as a JSON array of strings containing ONLY the IDs.`,
@@ -90,7 +90,7 @@ export const recommendJewelry = async (transcript: string, products: Product[]):
   }
 };
 
-export const performAITryOn = async (userImageBase64: string, jewelryImageBase64: string, productCategory: string, productName: string, environment: string = 'Tanishq Flagship Boutique') => {
+export const performAITryOn = async (userImageBase64: string, jewelryImageBase64: string, productCategory: string, productName: string, environment: string = 'Zoya Flagship Boutique') => {
   const ai = getAIClient();
   const response = await ai.models.generateContent({
     model: 'gemini-2.5-flash-image',
@@ -98,17 +98,17 @@ export const performAITryOn = async (userImageBase64: string, jewelryImageBase64
       parts: [
         { inlineData: { data: userImageBase64.split(',')[1], mimeType: 'image/jpeg' } },
         { inlineData: { data: jewelryImageBase64.split(',')[1], mimeType: 'image/jpeg' } },
-        { text: `TANISHQ PRECISION TRY-ON:
+        { text: `Zoya PRECISION TRY-ON:
           
           TASK: Apply the EXACT ${productCategory} from IMAGE 2 onto the person in IMAGE 1.
           
           MANDATORY FIDELITY CONSTRAINTS:
-          - Image 2 is the "Master Asset" (Tanishq ${productName}). 
+          - Image 2 is the "Master Asset" (Zoya ${productName}). 
           - CLONE THE DESIGN: Do not re-imagine the patterns, stones, or metal texture.
           - POSITIONING: Place necklace around neck, rings on fingers, or earrings on ears with 100% anatomical accuracy.
-          - LIGHTING: Blend with the person's photo but maintain the high-end Tanishq gold brilliance.
+          - LIGHTING: Blend with the person's photo but maintain the high-end Zoya gold brilliance.
           
-          Final result must be a pixel-perfect Tanishq marketing editorial image.` }
+          Final result must be a pixel-perfect Zoya marketing editorial image.` }
       ],
     },
   });
@@ -125,9 +125,9 @@ export const changeOutfit = async (tryOnResultBase64: string, outfitPrompt: stri
     contents: {
       parts: [
         { inlineData: { data: tryOnResultBase64.split(',')[1], mimeType: 'image/jpeg' } },
-        { text: `TANISHQ AI WARDROBE REIMAGINING:
+        { text: `Zoya AI WARDROBE REIMAGINING:
           
-          The person in the image is already wearing a Tanishq jewelry masterpiece.
+          The person in the image is already wearing a Zoya jewelry masterpiece.
           
           TASK: Swap the person's clothing and setting to: ${outfitPrompt}.
           
@@ -136,7 +136,7 @@ export const changeOutfit = async (tryOnResultBase64: string, outfitPrompt: stri
           2. UPDATE THE ATTIRE: Only modify the clothes, hairstyle, and background to create a luxurious fashion look.
           3. COMPLEMENTARY STYLE: Ensure the new clothing neckline highlights the jewelry perfectly.
           
-          Output must be a high-resolution Tanishq digital portrait.` }
+          Output must be a high-resolution Zoya digital portrait.` }
       ],
     },
   });
@@ -160,14 +160,14 @@ export const editProductImage = async (imageBase64: string, prompt: string) => {
     contents: {
       parts: [
         { inlineData: { data: imageBase64.split(',')[1], mimeType } },
-        { text: `TANISHQ STUDIO EDIT: 
+        { text: `Zoya STUDIO EDIT: 
                  You are a professional jewelry photographer. 
                  MODIFICATION REQUEST: ${prompt}
                  
                  CONSTRAINTS:
                  - Maintain the absolute physical integrity of the jewelry itself.
                  - Enhance lighting, clarity, and background according to the request.
-                 - The final image must look like a professional Tanishq catalog shot.` }
+                 - The final image must look like a professional Zoya catalog shot.` }
       ],
     },
   });
@@ -202,7 +202,7 @@ export const generateGreetingCard = async (prompt: string): Promise<string | nul
   const response = await ai.models.generateContent({
     model: 'gemini-2.5-flash-image',
     contents: {
-      parts: [{ text: `Tanishq luxury heritage lifestyle: ${prompt}. Cinematic lighting, royal Indian vibes.` }],
+      parts: [{ text: `Zoya luxury heritage lifestyle: ${prompt}. Cinematic lighting, royal Indian vibes.` }],
     },
   });
   for (const part of response.candidates[0].content.parts) {
